@@ -32,16 +32,37 @@ struct Day01Tests {
     #expect(dial.value == 95)
   }
 
-//  @Test func checkData() async throws {
-//    let challenge = Day01()
-//    let data = challenge.data
-//    //print(data)
-//    print(try await challenge.part1())
-//  }
-
   @Test func challengePart1() async throws {
     let challenge = Day01()
+//    print(try await challenge.part1())
     #expect(String(describing: try await challenge.part1()) == "1023")
+  }
+
+  @Test func slowClickBack() async throws {
+    var dial = Dial(5)
+    let sequenceOfPositions = dial.slowClicks(by: -10)
+    #expect(sequenceOfPositions == [4,3,2,1,0,99,98,97,96,95])
+    #expect(dial.value == 95)
+  }
+
+  @Test func slowClickNil() async throws {
+    var dial = Dial(99)
+    let sequenceOfPositions = dial.slowClicks(by: 0)
+    #expect(sequenceOfPositions == [])
+    #expect(dial.value == 99)
+  }
+
+  @Test func slowClickForward() async throws {
+    var dial = Dial(99)
+    let sequenceOfPositions = dial.slowClicks(by: 4)
+    #expect(sequenceOfPositions == [0,1,2,3])
+    #expect(dial.value == 3)
+  }
+
+  @Test func challengePart2() async throws {
+    let challenge = Day01()
+//    print(try await challenge.part2())
+    #expect(String(describing: try await challenge.part2()) == "5899")
   }
 
 }
